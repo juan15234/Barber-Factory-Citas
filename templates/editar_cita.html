@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Barber Factory</title>
+    <link rel="stylesheet" href="../static/style/style_editar.css" />
+  </head>
+  <header>
+    <div class="container-salir">
+      <h2>The Barber Factory</h2>
+      <button onclick="cerrar_editar_cita()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-x-lg"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"
+          />
+        </svg>
+      </button>
+    </div>
+  </header>
+  <body>
+    <!--Action=hora_disponible es la ruta donde se va a buscar las horas disponibles para un servicio-->
+    <form id="fecha-barbero-form">
+      <div class="container-datos">
+        <div class="container" id="container-barberos-fecha">
+          <div class="card">
+            <h2>Seleccione una Fecha</h2>
+
+            <div class="fecha">
+              <input type="date" name="fecha" id="fecha" placeholder="Fecha" />
+            </div>
+          </div>
+
+          <div class="card" id="barberos">
+            <h2>Seleccione El Barbero</h2>
+
+            <div class="profesionales">
+              <button class="profesional" value="william" type="button">
+                <img
+                  src="../static/imagenes/perfil_william.jpg"
+                  id="perfil_william"
+                  alt="perfil william"
+                />
+
+                <label for="perfil_william">William</label>
+              </button>
+
+              <button class="profesional" value="ruben" type="button">
+                <img
+                  src="../static/imagenes/perfil_ruben.jpg"
+                  alt="perfil william"
+                />
+
+                <label for="perfil_ruben">Ruben</label>
+              </button>
+
+              <button class="profesional" value="bryan" type="button">
+                <img
+                  src="../static/imagenes/perfil_bryan.jpg"
+                  alt="perfil william"
+                />
+
+                <label for="perfil_bryan">Bryan</label>
+              </button>
+
+              <!--<button class="profesional" value="marcos" type="button">
+        
+                            <img src="../static/imagenes/perfil_william.jpg" alt="perfil william">
+        
+                            <label for="perfil_marcos">William</label>
+        
+                        </button>-->
+
+              <button class="profesional" value="jhon" type="button">
+                <img
+                  src="../static/imagenes/perfil_jhon.jpg"
+                  alt="perfil jhon"
+                />
+
+                <label for="perfil_jhon">Jhon</label>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="card_horas">
+          <h2>Selecciona la Hora del Servicio</h2>
+
+          <div id="horas-container" class="horas-disponibles-container">
+            <div class="group">
+              <label>Mañana</label>
+              <div
+                id="horas_mañana"
+                class="horas-disponibles-horarios-container"
+              >
+                Seleccione Fecha y Barbero
+              </div>
+            </div>
+
+            <div class="group">
+              <label>Tarde</label>
+              <div
+                id="horas_tarde"
+                class="horas-disponibles-horarios-container"
+              >
+                Seleccione Fecha y Barbero
+              </div>
+            </div>
+
+            <div class="group">
+              <label>Noche</label>
+              <div
+                id="horas_noche"
+                class="horas-disponibles-horarios-container"
+              >
+                Seleccione Fecha y Barbero
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-boton-submit">
+        <button type="button" class="button-editar" onclick="editar_cita()">
+          <span>Editar</span>
+        </button>
+
+        <button type="button" class="button-cancelar" onclick="cancelar_cita()">
+          <span>Cancelar</span>
+        </button>
+      </div>
+    </form>
+
+    <div class="server_response">
+      <button onclick="cerrar_alerta()" class="salir_button">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          fill="white"
+          class="bi bi-x-lg"
+          viewBox="0 0 16 16"
+          id="salir_icon"
+        >
+          <path
+            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"
+          />
+        </svg>
+      </button>
+
+      <div class="exito">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="150"
+          height="150"
+          fill="white"
+          class="bi bi-check2"
+          viewBox="0 0 16 16"
+          id="exito_icon"
+        >
+          <path
+            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"
+          />
+        </svg>
+        <span id="span_exito">¡Cita editada con exito!</span>
+      </div>
+
+      <div class="error">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="150"
+          height="150"
+          fill="white"
+          class="bi bi-x-lg"
+          viewBox="0 0 16 16"
+          id="error_icon"
+        >
+          <path
+            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"
+          />
+        </svg>
+        <span id="span_error">¡Hubo un error, revise los datos!</span>
+      </div>
+    </div>
+
+    <div id="hora_no_disponible">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="150"
+        height="150"
+        fill="currentColor"
+        class="bi bi-emoji-frown-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m-2.715 5.933a.5.5 0 0 1-.183-.683A4.5 4.5 0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 0 1-.866.5A3.5 3.5 0 0 0 8 10.5a3.5 3.5 0 0 0-3.032 1.75.5.5 0 0 1-.683.183M10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8"
+        />
+      </svg>
+      <span id="no_disponible_span"
+        >¡Lo sentimos!, No tenemos disponible esta hora, le ofrecemos estas
+        opciones:</span
+      >
+      <div id="horas_recomendadas"></div>
+    </div>
+
+    <div class="loader">
+      <div class="loading"></div>
+    </div>
+
+    <!-- Incluye Flatpickr -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+      flatpickr("input[type='date']", {
+        dateFormat: "Y-m-d",
+      });
+
+      const loader = document.querySelector(".loader");
+
+      function mostrar_cargando() {
+        loader.style.display = "flex";
+      }
+
+      function ocultar_cargando() {
+        loader.style.display = "none";
+      }
+
+      let ultimo_barbero_presionado = null;
+
+      //estilo borde boton barbero seleccionado
+      document.querySelectorAll(".profesional").forEach((boton) => {
+        boton.addEventListener("click", function () {
+          document.querySelectorAll(".profesional").forEach((btn) => {
+            btn.classList.remove("seleccionado");
+          });
+
+          this.classList.add("seleccionado");
+
+          ultimo_barbero_presionado = this;
+
+          horas_disponibles(this);
+        });
+      });
+
+      //horas disponibles
+      const fechaInput = document.getElementById("fecha");
+      const hora_container = document.getElementById("horas-container");
+
+      const hora_container_mañana = document.getElementById("horas_mañana");
+      const hora_container_tarde = document.getElementById("horas_tarde");
+      const hora_container_noche = document.getElementById("horas_noche");
+
+      let fecha = null;
+      let barbero = null;
+
+      let bloques_ocupados = null;
+
+      async function horas_disponibles(boton) {
+        fecha = fechaInput.value;
+
+        barbero = boton.value;
+
+        if (fecha && barbero) {
+          try {
+            mostrar_cargando();
+
+            const response = await fetch(
+              `/horas-disponibles?fecha=${fecha}&barbero=${barbero}`
+            );
+
+            respuesta_horas = await response.json();
+
+            ocultar_cargando();
+
+            bloques_ocupados = respuesta_horas[1];
+
+            const horas_mañana = respuesta_horas[0][0];
+
+            hora_container_mañana.innerHTML = "";
+            hora_container_tarde.innerHTML = "";
+            hora_container_noche.innerHTML = "";
+
+            if (horas_mañana.length > 0) {
+              horas_mañana.forEach((hora) => {
+                const hora_button_mañana = document.createElement("button");
+                hora_button_mañana.classList.add("horas");
+                hora_button_mañana.textContent = hora;
+                hora_button_mañana.value = hora;
+                hora_button_mañana.type = "button";
+                hora_button_mañana.id = `hora-${hora.replace(":", "")}`;
+                hora_button_mañana.onclick = function () {
+                  guardar_hora(this.id);
+                };
+
+                hora_container_mañana.appendChild(hora_button_mañana);
+              });
+            } else {
+              hora_container_mañana.innerHTML = "No Horas Disponibles";
+            }
+
+            horas_tarde = respuesta_horas[0][1];
+
+            if (horas_tarde.length > 0) {
+              horas_tarde.forEach((hora) => {
+                const hora_button_tarde = document.createElement("button");
+                hora_button_tarde.classList.add("horas");
+                hora_button_tarde.textContent = hora;
+                hora_button_tarde.value = hora;
+                hora_button_tarde.type = "button";
+                hora_button_tarde.id = `hora-${hora.replace(":", "")}`;
+                hora_button_tarde.onclick = function () {
+                  guardar_hora(this.id);
+                };
+
+                hora_container_tarde.appendChild(hora_button_tarde);
+              });
+            } else {
+              hora_container_tarde.innerHTML = "No Horas Disponibles";
+            }
+
+            horas_noche = respuesta_horas[0][2];
+
+            if (horas_noche.length > 0) {
+              horas_noche.forEach((hora) => {
+                const hora_button_noche = document.createElement("button");
+                hora_button_noche.classList.add("horas");
+                hora_button_noche.textContent = hora;
+                hora_button_noche.value = hora;
+                hora_button_noche.type = "button";
+                hora_button_noche.id = `hora-${hora.replace(":", "")}`;
+                hora_button_noche.onclick = function () {
+                  guardar_hora(this.id);
+                };
+
+                hora_container_noche.appendChild(hora_button_noche);
+              });
+            } else {
+              hora_container_noche.innerHTML = "No Horas Disponibles";
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+
+      fechaInput.addEventListener("change", () => {
+        if (ultimo_barbero_presionado) {
+          horas_disponibles(ultimo_barbero_presionado);
+        }
+      });
+
+      let hora = null;
+
+      const horas_no_disponibles_container =
+        document.getElementById("hora_no_disponible");
+      const horas_recomendadas_container =
+        document.getElementById("horas_recomendadas");
+
+      function guardar_hora(id) {
+        document.querySelectorAll(".horas").forEach((btn) => {
+          btn.style.border = "none";
+          btn.style.transform = "translateY(0%)";
+        });
+
+        hora_element = document.getElementById(id);
+        hora_element.style.border = "1px solid black";
+        hora_element.style.transform = "translateY(-5%)";
+
+        hora = document.getElementById(id).value;
+
+        if (bloques_ocupados != []) {
+          for (let i = 0; i <= bloques_ocupados.length - 1; i++) {
+            ultima_hora_ocupada =
+              bloques_ocupados[i][bloques_ocupados[i].length - 1];
+
+            ultima_hora_ocupada_int = parseInt(
+              ultima_hora_ocupada.replace(":", "")
+            );
+
+            const [horas, minutos] = ultima_hora_ocupada.split(":").map(Number);
+
+            const fecha = new Date();
+            fecha.setHours(horas);
+            fecha.setMinutes(minutos);
+
+            fecha.setMinutes(fecha.getMinutes() + 45);
+
+            const horaFinal = fecha.getHours().toString().padStart(2, "0");
+            const minutoFinal = fecha.getMinutes().toString().padStart(2, "0");
+
+            ultima_hora_ocupada_sumada = `${horaFinal}${minutoFinal}`;
+
+            ultima_hora_ocupada_sumada_int = parseInt(
+              ultima_hora_ocupada_sumada
+            );
+
+            hora_int = parseInt(hora.replace(":", ""));
+
+            hora_int_string_sumada = String(hora_int + 45);
+
+            hora_int_sumada_replace = parseInt(
+              hora_int_string_sumada[0] + hora_int_string_sumada[1]
+            );
+
+            minuto_izquierda_int_sumada = hora_int_string_sumada[2];
+            minuto_derecha_int_sumada = hora_int_string_sumada[3];
+
+            tiempo_duracion = true;
+
+            if (minuto_izquierda_int_sumada > 5) {
+              minuto_izquierda_int_sumada = 0;
+              hora_int_sumada_replace += 1;
+            }
+
+            if (
+              minuto_izquierda_int_sumada == 0 &&
+              minuto_derecha_int_sumada == 5
+            ) {
+              minuto_izquierda_int_sumada = 1;
+            } else if (
+              minuto_izquierda_int_sumada == 3 &&
+              minuto_derecha_int_sumada == 0
+            ) {
+              minuto_izquierda_int_sumada = 3;
+              minuto_derecha_int_sumada = 0;
+            }
+
+            hora_int_sumada_string =
+              String(hora_int_sumada_replace) +
+              ":" +
+              String(minuto_izquierda_int_sumada) +
+              String(minuto_derecha_int_sumada);
+
+            hora_int_sumada = parseInt(hora_int_sumada_string.replace(":", ""));
+
+            if (
+              !document.getElementById(
+                "hora-" + hora_int_sumada_string.replace(":", "")
+              )
+            ) {
+              tiempo_duracion = false;
+            }
+
+            if (!tiempo_duracion) {
+              hora_disponible_tiempo_duracion = hora_int_sumada;
+
+              hora_disponible_tiempo_duracion_string = String(
+                hora_disponible_tiempo_duracion
+              );
+
+              while (tiempo_duracion == false) {
+                if (
+                  !document.getElementById(
+                    "hora-" + hora_disponible_tiempo_duracion
+                  )
+                ) {
+                  if (
+                    hora_disponible_tiempo_duracion_string[2] == 6 &&
+                    hora_disponible_tiempo_duracion_string[3] == 0
+                  ) {
+                    hora_disponible_tiempo_duracion_string_hora =
+                      parseInt(hora_disponible_tiempo_duracion_string[1]) + 1;
+
+                    hora_disponible_tiempo_duracion_string =
+                      hora_disponible_tiempo_duracion_string[0] +
+                      String(hora_disponible_tiempo_duracion_string_hora) +
+                      "00";
+
+                    hora_disponible_tiempo_duracion = parseInt(
+                      hora_disponible_tiempo_duracion_string
+                    );
+                  }
+
+                  tiempo_duracion = false;
+                  hora_disponible_tiempo_duracion += 15;
+                  hora_disponible_tiempo_duracion_string = String(
+                    hora_disponible_tiempo_duracion
+                  );
+                } else {
+                  tiempo_duracion = true;
+
+                  hora_disponible_tiempo_duracion_boton =
+                    document.createElement("button");
+                  hora_disponible_tiempo_duracion_boton.textContent =
+                    hora_disponible_tiempo_duracion_string =
+                      hora_disponible_tiempo_duracion_string[0] +
+                      hora_disponible_tiempo_duracion_string[1] +
+                      ":" +
+                      hora_disponible_tiempo_duracion_string[2] +
+                      hora_disponible_tiempo_duracion_string[3];
+                  hora_disponible_tiempo_duracion_boton.value =
+                    hora_disponible_tiempo_duracion_string;
+                  hora_disponible_tiempo_duracion_boton.id =
+                    hora_disponible_tiempo_duracion_string.replace(":", "");
+                  hora_disponible_tiempo_duracion_boton.onclick = function () {
+                    guardar_hora_sugerida(this.id);
+
+                    horas_no_disponibles_container.style.display = "none";
+                    horas_recomendadas_container.style.display = "none";
+                  };
+
+                  hora_disponible_tiempo_duracion_boton.classList.add(
+                    "hora_recomendada"
+                  );
+
+                  horas_recomendadas_container.innerHTML = "";
+
+                  horas_recomendadas_container.appendChild(
+                    hora_disponible_tiempo_duracion_boton
+                  );
+
+                  horas_no_disponibles_container.style.display = "flex";
+                  horas_recomendadas_container.style.display = "flex";
+                }
+              }
+            }
+
+            if (hora_int == ultima_hora_ocupada_int + 1) {
+              hora = document.getElementById(id).value;
+            } else if (
+              hora_int > ultima_hora_ocupada_int &&
+              hora_int < ultima_hora_ocupada_sumada_int
+            ) {
+              //HORA SUMADA
+
+              hora_sumada = parseInt(
+                ultima_hora_ocupada_sumada[0] + ultima_hora_ocupada_sumada[1]
+              );
+
+              minuto_izquierda = parseInt(ultima_hora_ocupada_sumada[2]);
+              minuto_derecha = parseInt(ultima_hora_ocupada_sumada[3]);
+
+              if (minuto_izquierda == 5 && minuto_derecha == 9) {
+                minuto_derecha = 0;
+                minuto_izquierda = 0;
+                hora_sumada += 1;
+              } else if (minuto_izquierda <= 5 && minuto_derecha < 9) {
+                minuto_derecha += 1;
+              } else if (minuto_izquierda < 5 && minuto_derecha == 9) {
+                minuto_izquierda += 1;
+                minuto_derecha = 0;
+              }
+
+              ultima_hora_ocupada_sumada =
+                String(hora_sumada) +
+                ":" +
+                String(minuto_izquierda) +
+                String(minuto_derecha);
+
+              //HORA SEGUIDA
+
+              hora_seguida = parseInt(
+                ultima_hora_ocupada[0] + ultima_hora_ocupada[1]
+              );
+
+              minuto_izquierda_seguida = parseInt(ultima_hora_ocupada[3]);
+              minuto_derecha_seguida = parseInt(ultima_hora_ocupada[4]);
+
+              if (
+                minuto_izquierda_seguida == 5 &&
+                minuto_derecha_seguida == 9
+              ) {
+                minuto_derecha_seguida = 0;
+                minuto_izquierda_seguida = 0;
+                hora_seguida += 1;
+              } else if (
+                minuto_izquierda_seguida <= 5 &&
+                minuto_derecha_seguida < 9
+              ) {
+                minuto_derecha_seguida += 1;
+              } else if (
+                minuto_izquierda_seguida < 5 &&
+                minuto_derecha_seguida == 9
+              ) {
+                minuto_izquierda_seguida += 1;
+                minuto_derecha_seguida = 0;
+              }
+
+              ultima_hora_ocupada =
+                String(hora_seguida) +
+                ":" +
+                String(minuto_izquierda_seguida) +
+                String(minuto_derecha_seguida);
+
+              horas_no_disponibles_container.style.display = "flex";
+
+              hora_seguida_boton = document.createElement("button");
+              hora_seguida_boton.textContent = ultima_hora_ocupada;
+              hora_seguida_boton.value = ultima_hora_ocupada;
+              hora_seguida_boton.id = ultima_hora_ocupada.replace(":", "");
+              hora_seguida_boton.onclick = function () {
+                guardar_hora_sugerida(this.id);
+
+                horas_no_disponibles_container.style.display = "none";
+                horas_recomendadas_container.style.display = "none";
+              };
+
+              hora_seguida_boton.classList.add("hora_recomendada");
+
+              hora_sumada_boton = document.createElement("button");
+              hora_sumada_boton.textContent = ultima_hora_ocupada_sumada;
+              hora_sumada_boton.value = ultima_hora_ocupada_sumada;
+              hora_sumada_boton.id = ultima_hora_ocupada_sumada.replace(
+                ":",
+                ""
+              );
+              hora_sumada_boton.onclick = function () {
+                guardar_hora_sugerida(this.id);
+
+                horas_no_disponibles_container.style.display = "none";
+                horas_recomendadas_container.style.display = "none";
+              };
+
+              hora_sumada_boton.classList.add("hora_recomendada");
+
+              horas_recomendadas_container.innerHTML = "";
+
+              horas_recomendadas_container.appendChild(hora_seguida_boton);
+              horas_recomendadas_container.appendChild(hora_sumada_boton);
+
+              horas_recomendadas_container.style.display = "flex";
+            }
+          }
+        }
+      }
+
+      function guardar_hora_sugerida(id) {
+        hora_sugerida_elegida = document.getElementById(id);
+
+        horas_no_disponibles_container.style.display = "none";
+        horas_recomendadas_container.style.display = "none";
+
+        document.querySelectorAll(".hora_recomendada").forEach((btn) => {
+          btn.style.transform = "translateY(0%)";
+        });
+
+        hora_sugerida_elegida.style.transform = "translateY(-5%)";
+
+        document.querySelectorAll(".horas").forEach((btn) => {
+          btn.style.border = "none";
+          btn.style.transform = "translateY(0%)";
+        });
+
+        hora_element = document.getElementById(
+          "hora-" + hora_sugerida_elegida.id
+        );
+        hora_element.style.border = "1px solid black";
+        hora_element.style.transform = "translateY(-5%)";
+
+        //guardar la hora
+
+        hora = hora_sugerida_elegida.value;
+
+        hora_int = parseInt(hora.replace(":", ""));
+
+        hora_string_sumada = String(hora_int + 45);
+
+        hora_int_sumada_replace = parseInt(
+          hora_string_sumada[0] + hora_string_sumada[1]
+        );
+
+        minuto_izquierda_int_sumada = hora_int_sumada[2];
+        minuto_derecha_int_sumada = hora_int_sumada[3];
+
+        if (minuto_izquierda_int_sumada > 5) {
+          minuto_izquierda_int_sumada = 0;
+          hora_int_sumada_replace += 1;
+        }
+
+        hora_int_sumada_string =
+          String(hora_int_sumada_replace) +
+          ":" +
+          String(minuto_izquierda_int_sumada) +
+          String(minuto_derecha_int_sumada);
+
+        hora_int_sumada = parseInt(hora_int_sumada_string.replace(":", ""));
+
+        horas_no_disponibles_container.style.display = "none";
+        horas_recomendadas_container.style.display = "none";
+      }
+
+      async function editar_cita() {
+        try {
+          const exito_div = document.querySelector(".exito");
+          const error_div = document.querySelector(".error");
+          const salir_button = document.querySelector(
+            ".server_response .salir_button"
+          );
+
+          const span_error = document.getElementById("span_error");
+          const span_exito = document.getElementById("span_exito");
+
+          if (barbero && fecha && hora) {
+            mostrar_cargando();
+
+            const response = await fetch(
+              `/editar_cita_backend?nuevo_barbero=${barbero}&nueva_fecha=${fecha}&nueva_hora=${hora}`
+            );
+
+            const cita_editada = await response.json();
+
+            ocultar_cargando();
+
+            if (cita_editada.ok) {
+              exito_div.style.display = "flex";
+              salir_button.style.display = "block";
+
+              span_exito.textContent = cita_editada.estatus_google_calendar;
+
+              console.log(response.json());
+
+              window.location.replace("/");
+            } else {
+              span_error.textContent = cita_editada.estatus_google_calendar;
+              error_div.style.display = "flex";
+              salir_button.style.display = "block";
+            }
+          } else {
+            salir_button.style.display = "block";
+            error_div.style.display = "flex";
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      async function cancelar_cita() {
+        try {
+          const exito_div = document.querySelector(".exito");
+          const error_div = document.querySelector(".error");
+          const salir_button = document.querySelector(
+            ".server_response .salir_button"
+          );
+
+          const span_error = document.getElementById("span_error");
+          const span_exito = document.getElementById("span_exito");
+
+          const response = await fetch(`/cancelar_cita_backend`);
+          const cita_cancelada = await response.json();
+
+          if (cita_cancelada.ok) {
+            exito_div.style.display = "flex";
+            salir_button.style.display = "block";
+
+            span_exito.textContent = cita_cancelada.estatus_bd;
+
+            console.log(response.json());
+            window.location.replace("/");
+          } else {
+            span_error.textContent = cita_cancelada.estatus_google_calendar;
+            error_div.style.display = "flex";
+            salir_button.style.display = "block";
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      function cerrar_alerta() {
+        const exito_div = document.querySelector(".exito");
+        const error_div = document.querySelector(".error");
+        const salir_button = document.querySelector(
+          ".server_response .salir_button"
+        );
+
+        exito_div.style.display = "none";
+        error_div.style.display = "none";
+        salir_button.style.display = "none";
+      }
+
+      function cerrar_editar_cita() {
+        window.location.replace("/");
+      }
+    </script>
+  </body>
+</html>
