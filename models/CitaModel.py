@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from zoneinfo import ZoneInfo\
 
 from models.GoogleCalendar import GoogleCalendar
 from models.Correo import Correo

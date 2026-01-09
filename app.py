@@ -1,5 +1,4 @@
-from flask import Flask, redirect, render_template, request, jsonify, session, url_for
-import uuid
+from flask import Flask, render_template, request, jsonify, session, url_for
 import os
 from dotenv import load_dotenv
 from apscheduler.schedulers.background import BackgroundScheduler

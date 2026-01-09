@@ -1,9 +1,7 @@
 import yagmail
 import os
-from datetime import datetime, timedelta
-from zoneinfo import ZoneInfo
+from datetime import datetime
 
-from conexion import obtener_conexion
 from models.GoogleCalendar import GoogleCalendar
 
 class Correo:
