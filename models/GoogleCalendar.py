@@ -27,15 +27,12 @@ class GoogleCalendar:
                 
             elif barbero == 'jhon':
                 colorId = '2'
-            
+                
             SCOPES = ['https://www.googleapis.com/auth/calendar']
             CALENDAR_ID = os.getenv('CORREO_BARBERIA')
 
-            credenciales_json = os.environ.get("GOOGLE_CREDENTIALS")
-            credenciales_dict = json.loads(credenciales_json)
-
             credentials = service_account.Credentials.from_service_account_file(
-                credenciales_dict,
+                'credenciales.json',
                 scopes=SCOPES
             )
             
@@ -75,11 +72,8 @@ class GoogleCalendar:
         SCOPES = ['https://www.googleapis.com/auth/calendar']
         CALENDAR_ID = os.getenv('CORREO_BARBERIA')
         
-        credenciales_json = os.environ.get("GOOGLE_CREDENTIALS")
-        credenciales_dict = json.loads(credenciales_json)
-
         credentials = service_account.Credentials.from_service_account_file(
-            credenciales_dict,
+            'credenciales.json',
             scopes=SCOPES
         )
 
@@ -128,12 +122,9 @@ class GoogleCalendar:
         
         SCOPES = ['https://www.googleapis.com/auth/calendar']
         CALENDAR_ID = os.getenv('CORREO_BARBERIA')
-
-        credenciales_json = os.environ.get("GOOGLE_CREDENTIALS")
-        credenciales_dict = json.loads(credenciales_json)
-
+        
         credentials = service_account.Credentials.from_service_account_file(
-            credenciales_dict,
+            'credenciales.json',
             scopes=SCOPES
         )
         
@@ -193,12 +184,9 @@ class GoogleCalendar:
         
         SCOPES = ['https://www.googleapis.com/auth/calendar']
         CALENDAR_ID = os.getenv('CORREO_BARBERIA')
-
-        credenciales_json = os.environ.get("GOOGLE_CREDENTIALS")
-        credenciales_dict = json.loads(credenciales_json)
-
+        
         credentials = service_account.Credentials.from_service_account_file(
-            credenciales_dict,
+            'credenciales.json',
             scopes=SCOPES
         )
         
