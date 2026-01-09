@@ -2,10 +2,8 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from flask import jsonify
 from datetime import datetime, timedelta
-import uuid
 import os
 import json
-import base64
 
 class GoogleCalendar:
 
@@ -34,8 +32,11 @@ class GoogleCalendar:
             SCOPES = ['https://www.googleapis.com/auth/calendar']
             CALENDAR_ID = os.getenv('CORREO_BARBERIA')
 
+            credenciales_json = os.environ.get("GOOGLE_CREDENTIALS")
+            credenciales_dict = json.loads(credenciales_json)
+
             credentials = service_account.Credentials.from_service_account_file(
-                'credenciales.json',
+                credenciales_dict,
                 scopes=SCOPES
             )
             
@@ -74,9 +75,12 @@ class GoogleCalendar:
         
         SCOPES = ['https://www.googleapis.com/auth/calendar']
         CALENDAR_ID = os.getenv('CORREO_BARBERIA')
+        
+        credenciales_json = os.environ.get("GOOGLE_CREDENTIALS")
+        credenciales_dict = json.loads(credenciales_json)
 
         credentials = service_account.Credentials.from_service_account_file(
-            'credenciales.json',
+            credenciales_dict,
             scopes=SCOPES
         )
 
@@ -126,8 +130,11 @@ class GoogleCalendar:
         SCOPES = ['https://www.googleapis.com/auth/calendar']
         CALENDAR_ID = os.getenv('CORREO_BARBERIA')
 
+        credenciales_json = os.environ.get("GOOGLE_CREDENTIALS")
+        credenciales_dict = json.loads(credenciales_json)
+
         credentials = service_account.Credentials.from_service_account_file(
-            'credenciales.json',
+            credenciales_dict,
             scopes=SCOPES
         )
         
@@ -188,8 +195,11 @@ class GoogleCalendar:
         SCOPES = ['https://www.googleapis.com/auth/calendar']
         CALENDAR_ID = os.getenv('CORREO_BARBERIA')
 
+        credenciales_json = os.environ.get("GOOGLE_CREDENTIALS")
+        credenciales_dict = json.loads(credenciales_json)
+
         credentials = service_account.Credentials.from_service_account_file(
-            'credenciales.json',
+            credenciales_dict,
             scopes=SCOPES
         )
         
