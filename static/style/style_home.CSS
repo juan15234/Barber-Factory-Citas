@@ -23,7 +23,6 @@ html, body{
 }
 
 h1{
-    position: relarive;
     margin: 15px;
     font-size: 60px;
     padding: 0;
@@ -100,52 +99,71 @@ h1{
 
 .agendacion{
     position: relative;
-    width: 95%;
-    left: 2%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    width: 100%;
 }
 
 .agendacion h2{
     position: relative;
     font-size: 40px;
+    background-color: black;
+    color: white;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
 }
 
 .servicios{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .card{
     position: relative;
-    width: 30%;
-    height: 150px;
+    width: 350px;
     box-shadow: 10px 20px  20px rgba(0,0,0,0.3);
     border-radius: 5%;
     background-color: rgb(245, 245, 245);
     margin: 10px;
+    display: grid;
+    grid-template-rows: 0.2fr 0.3fr;
+    align-items: center;
+}
+
+.card h3{
+    text-align: center;
+    font-size: 30px;
+}
+
+.card ul li{
+    margin-bottom: 10px;
+    color: gray;
 }
 
 .card a{
     position: relative;
-    left: 60%;
     margin: 10px;
     padding: 10px;
-    background-color: rgb(67, 67, 228);
+    background-color: black;
     outline: none;
     border: none;
     height: 30px;
     color: white;
-    font-size: 17px;
+    font-size: 20px;
     border-radius: 15px;
     text-decoration: none;
+    text-align: center;
+    align-self: end;
 }
 
 .card a:hover{
     cursor: pointer;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
 }
 
 @media (min-width: 0px) and (max-width:600px){ /* celulares */
@@ -193,20 +211,7 @@ h1{
     }
 
     .agendacion h2{
-        left: 5%;
-        font-size: 35px;
-    }
-
-    .card{
-        width: 40%;
-        height: 200px;
-        padding: 4px;
-    }
-
-    .card a{
-        left: 1%;
-        margin: 5px;
-        font-size: 12px;
+        font-size: 10vw;
     }
 }
 
@@ -225,14 +230,15 @@ h1{
     .titulos h1{
         position: relative;
         font-size: 50px;
-        left: 5%;
         margin: 5px;
+        text-align: center;
     }
 
     .titulos h2{
         position: relative;
         font-size: 30px;
-        left: 5%;
+        margin-left: 0;
+        text-align: center;
     }
 
     .imagen{
@@ -252,21 +258,5 @@ h1{
         width: 98%;
         margin: 10px;
         flex-wrap: wrap;
-    }
-
-    .card{
-        width: 40%;
-        height: 200px;
-        padding: 4px;
-        display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
-    }
-
-    .card a{
-        left: 0;
-        margin: 5px;
-        font-size: 20px;
-        justify-self: self-end;
-        align-self: self-end;
     }
 }
