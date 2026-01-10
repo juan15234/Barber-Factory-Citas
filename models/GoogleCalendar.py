@@ -32,7 +32,7 @@ class GoogleCalendar:
             CALENDAR_ID = os.getenv('CORREO_BARBERIA')
 
             credentials = service_account.Credentials.from_service_account_file(
-                'credenciales.json',
+                '"/etc/secrets/credenciales.json"',
                 scopes=SCOPES
             )
             
@@ -73,7 +73,7 @@ class GoogleCalendar:
         CALENDAR_ID = os.getenv('CORREO_BARBERIA')
         
         credentials = service_account.Credentials.from_service_account_file(
-            'credenciales.json',
+            '"/etc/secrets/credenciales.json"',
             scopes=SCOPES
         )
 
@@ -124,7 +124,7 @@ class GoogleCalendar:
         CALENDAR_ID = os.getenv('CORREO_BARBERIA')
         
         credentials = service_account.Credentials.from_service_account_file(
-            'credenciales.json',
+            '"/etc/secrets/credenciales.json"',
             scopes=SCOPES
         )
         
@@ -186,7 +186,7 @@ class GoogleCalendar:
         CALENDAR_ID = os.getenv('CORREO_BARBERIA')
         
         credentials = service_account.Credentials.from_service_account_file(
-            'credenciales.json',
+            '"/etc/secrets/credenciales.json"',
             scopes=SCOPES
         )
         

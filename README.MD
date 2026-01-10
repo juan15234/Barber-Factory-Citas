@@ -1,0 +1,1 @@
+esta es un aplicacion de citas para una barberia, tiene enlace con google calendar y manda emails al cliente
