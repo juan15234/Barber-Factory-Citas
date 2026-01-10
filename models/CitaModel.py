@@ -1,8 +1,7 @@
 from datetime import datetime, timedelta
-import threading
 
 from models.GoogleCalendar import GoogleCalendar
-from models.Correo import enviar_correo_async
+from models.Correo import Correo
 
 
 class CitaModel:
@@ -122,13 +121,9 @@ class CitaModel:
 
             cita_creada,cita_id = GoogleCalendar.crear_evento(usuario,servicio,barbero,correo_cliente,telefono_cliente,hora,fecha,duracion,nota_cliente)
 
-            threading.Thread(
-                target=enviar_correo_async,
-                args=(correo_cliente, usuario, barbero, hora, fecha, servicio, cita_id),
-                daemon=True
-            ).start()
+            enviar_correo = Correo.enviar_correo_confimacion_cita(correo_cliente, usuario, barbero, hora, fecha, servicio, cita_id)
 
-            return cita_creada,True,cita_id
+            return cita_creada,enviar_correo,cita_id
             
         except Exception as e:
             print(e)

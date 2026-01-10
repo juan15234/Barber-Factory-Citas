@@ -1,4 +1,4 @@
-gunicorn==23.0.0
+
 google==3.0.0
 google-api-core==2.25.1
 google-api-python-client==2.174.0

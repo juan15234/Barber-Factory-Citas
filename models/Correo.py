@@ -1,7 +1,6 @@
 import yagmail
 import os
 from datetime import datetime
-import threading
 
 from models.GoogleCalendar import GoogleCalendar
 
@@ -255,7 +254,3 @@ class Correo:
                 print(e)
         
         return 'se ha enviado los recordatorios a los correos de los clientes'
-    
-def enviar_correo_async(*args):
-    Correo.enviar_correo_confimacion_cita(*args)
-    print('correo enviado')
