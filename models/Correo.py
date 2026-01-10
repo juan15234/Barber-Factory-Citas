@@ -258,3 +258,4 @@ class Correo:
     
 def enviar_correo_async(*args):
     Correo.enviar_correo_confimacion_cita(*args)
+    print('correo enviado')

@@ -124,7 +124,7 @@ class CitaModel:
 
             threading.Thread(
                 target=enviar_correo_async,
-                args=(correo_cliente, usuario, barbero, hora, fecha, servicio, cita_id)
+                args=(correo_cliente, usuario, barbero, hora, fecha, servicio, cita_id),
             ).start()
 
             return cita_creada,True,cita_id
