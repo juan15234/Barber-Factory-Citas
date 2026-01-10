@@ -26,39 +26,37 @@ def horas_disponibles():
 
 @app.route('/crear_cita')
 def crear_cita():
-    try:
         
-        nombre = request.args.get('nombre')
-        correo_cliente = request.args.get('correo_cliente')
-        telefono_cliente = request.args.get('telefono_cliente')
-        barbero = request.args.get('barbero')
-        fecha = request.args.get('fecha')
-        hora = request.args.get('hora')
-        servicio = session.get('servicio')
-        duracion = session.get('duracion')
-        nota_cliente = request.args.get('nota')
-
-        if not nota_cliente:
-            nota_cliente = 'nada'
-
-        session['nombre'] = nombre
-        session['barbero'] = barbero
-        session['hora'] = hora
-        session['fecha'] = fecha
-        session['correo_cliente'] = correo_cliente
-        session['telefono_cliente'] = telefono_cliente
-        session['nota_cliente'] = nota_cliente
-
-        cita_creada, enviar_correo,cita_id = CitaModel.crear_cita(nombre, barbero, fecha, hora, correo_cliente, telefono_cliente, servicio, duracion , nota_cliente)
-        session['cita_id'] = cita_id
-
-        if cita_creada == 'Cita Creada':
-            return jsonify({'ok': True, 'estatus': 'Cita creada', 'estatus_correo':enviar_correo})
-        else:
-            return jsonify({'ok':False, 'estatus': 'Cita no creada'})
+    nombre = request.args.get('nombre')
+    correo_cliente = request.args.get('correo_cliente')
+    telefono_cliente = request.args.get('telefono_cliente')
+    barbero = request.args.get('barbero')
+    fecha = request.args.get('fecha')
+    hora = request.args.get('hora')
+    servicio = session.get('servicio')
+    duracion = session.get('duracion')
+    nota_cliente = request.args.get('nota')
+    
+    if not nota_cliente:
+        nota_cliente = 'nada'
         
-    except Exception as e:
-        print(e)
+    print(nombre,correo_cliente,telefono_cliente,barbero,fecha,hora,servicio,duracion,nota_cliente)
+        
+    session['nombre'] = nombre
+    session['barbero'] = barbero
+    session['hora'] = hora
+    session['fecha'] = fecha
+    session['correo_cliente'] = correo_cliente
+    session['telefono_cliente'] = telefono_cliente
+    session['nota_cliente'] = nota_cliente
+    
+    cita_creada, enviar_correo,cita_id = CitaModel.crear_cita(nombre, barbero, fecha, hora, correo_cliente, telefono_cliente, servicio, duracion , nota_cliente)
+    session['cita_id'] = cita_id
+    
+    if cita_creada == 'Cita Creada':
+        return jsonify({'ok': True, 'estatus': 'Cita creada', 'estatus_correo':enviar_correo})
+    else:
+        return jsonify({'ok':False, 'estatus': 'Cita no creada'})
 
 
 @app.route('/agendar/<servicio>')
