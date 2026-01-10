@@ -22,7 +22,7 @@ class GoogleCalendar:
             elif barbero == 'bryan':
                 colorId = '6'
                 
-            elif barbero == 'marcos':
+            elif barbero == 'jonathan':
                 colorId = '1'
                 
             elif barbero == 'jhon':
